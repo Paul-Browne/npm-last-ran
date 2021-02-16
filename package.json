@@ -1,0 +1,19 @@
+{
+  "name": "stamptime",
+  "version": "1.0.2",
+  "description": "get and set when a script/function was last executed",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paul-Browne/npm-last-ran.git"
+  },
+  "author": "Paul Browne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Paul-Browne/npm-last-ran/issues"
+  },
+  "homepage": "https://github.com/Paul-Browne/npm-last-ran#readme"
+}
