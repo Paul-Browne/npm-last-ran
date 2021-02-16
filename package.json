@@ -1,11 +1,18 @@
 {
   "name": "stamptime",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "get and set when a script/function was last executed",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "*",
+    "!/tests",
+    "!/.git",
+    "!.gitignore",
+    "!test.js"
+  ],  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Paul-Browne/npm-last-ran.git"
