@@ -1,6 +1,6 @@
 {
   "name": "stamptime",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "description": "get and set when a script/function was last executed",
   "main": "index.js",
   "scripts": {
