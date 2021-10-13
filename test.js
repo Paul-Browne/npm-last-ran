@@ -1,12 +1,13 @@
-const stamptime = require(".");
+import { set, get, reset } from "stamptime";
 
 const start = Date.now();
 
-let i = 1000;
+let i = 10000;
+
 while(i--){
-	stamptime.set(i);
-	stamptime.get(i);
-	stamptime.reset(i);
+	await set(i);
+	await get(i);
+	await reset(i);
 }
 
 console.log(Date.now() - start);

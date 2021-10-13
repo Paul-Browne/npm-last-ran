@@ -1,18 +1,19 @@
 {
   "name": "stamptime",
-  "version": "1.0.7",
-  "description": "get and set when a script/function was last executed",
+  "version": "2.0.1",
+  "description": "get, set and reset when a script/function was last executed",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
+  "type": "module",
   "files": [
     "*",
     "!/tests",
     "!/.git",
     "!.gitignore",
     "!test.js"
-  ],  
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Paul-Browne/npm-last-ran.git"
@@ -22,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/Paul-Browne/npm-last-ran/issues"
   },
-  "homepage": "https://github.com/Paul-Browne/npm-last-ran#readme"
+  "homepage": "https://github.com/Paul-Browne/npm-last-ran#readme",
+  "devDependencies": {
+    "stamptime": "^2.0.1"
+  }
 }

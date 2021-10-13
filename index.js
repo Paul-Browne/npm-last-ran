@@ -1,7 +1,8 @@
-const fs = require("fs");
-const path = require("path");
+import { access, stat, writeFile, unlink } from "fs/promises";
+import { join, dirname } from "path";
+import { fileURLToPath } from 'url';
 
-const _path = id => {
+const path = id => {
 	const e = new Error();
 	// do match first
 	const matched = e.stack.match(/node_modules\/.*?\//g);
@@ -12,17 +13,15 @@ const _path = id => {
     	const name = el.match(/node_modules\/(.*?)\//);
     	return (name[1] !== "stamptime" ) ? (acc + "_" + name[1]) : acc;
 	}, (id||0).toString() );
-	return path.join(__dirname, reduced );
+	return join(dirname(fileURLToPath(import.meta.url)), reduced );
 }
 
-module.exports = {
-	get: id => {
-		return fs.existsSync(_path(id)) ? fs.statSync(_path(id)).mtimeMs : 0;
-	},
-	set: id => {
-		fs.writeFileSync(_path(id), "");
-	},
-	reset: id => {
-		fs.existsSync(_path(id)) && fs.unlink(_path(id), () => {});
-	}
+export const get = async id => {
+	return await access(path(id)) ? stat(path(id)).mtimeMs : 0;
+}
+export const set = async id => {
+	await writeFile(path(id), "");
+}
+export const reset = async id => {
+	await access(path(id)) && unlink(path(id), () => { });
 }
