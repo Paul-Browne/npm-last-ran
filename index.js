@@ -17,7 +17,7 @@ const path = id => {
 }
 
 export const get = async id => {
-	return await access(path(id)) ? stat(path(id)).mtimeMs : 0;
+	return (await access(path(id)) === undefined ? (await stat(path(id))).mtimeMs : 0);
 }
 export const set = async id => {
 	await writeFile(path(id), "");
