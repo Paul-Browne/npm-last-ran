@@ -1,8 +1,8 @@
-import { access, stat, writeFile, unlink } from "fs/promises";
+import { stat, writeFile, unlink } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from 'url';
 
-const path = id => {
+const path = (id = 0) => {
 	const e = new Error();
 	// do match first
 	const matched = e.stack.match(/node_modules\/.*?\//g);
@@ -12,16 +12,23 @@ const path = id => {
 	const reduced = unique.reduce((acc, el) => {
     	const name = el.match(/node_modules\/(.*?)\//);
     	return (name[1] !== "stamptime" ) ? (acc + "_" + name[1]) : acc;
-	}, (id||0).toString() );
+	}, id.toString() );
 	return join(dirname(fileURLToPath(import.meta.url)), reduced );
 }
 
 export const get = async id => {
-	return (await access(path(id)) === undefined ? (await stat(path(id))).mtimeMs : 0);
+	try {
+		return (await stat(path(id))).mtimeMs;
+	} catch (error) {
+		await writeFile(path(id), "");
+		return 0;
+	}
 }
 export const set = async id => {
 	await writeFile(path(id), "");
 }
 export const reset = async id => {
-	await access(path(id)) && unlink(path(id), () => { });
+	try {
+		await unlink(path(id), () => { });
+	} catch  { }
 }

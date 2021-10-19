@@ -1,6 +1,6 @@
-import { stat, readdir, readFile, access } from "fs/promises";
+import { stat, readdir, readFile} from "fs/promises";
 import { join } from "path";
-import { set, get, reset } from "stamptime";
+import { get, reset } from "stamptime";
 
 const start = Date.now();
 
@@ -14,6 +14,7 @@ while(i--){
 
 console.log(Date.now() - start);
 
+
 const changedFilesSinceLastBuild = async path => {
 	const timestamp = await get("xyz");
     const stats = await stat(path);
@@ -21,8 +22,9 @@ const changedFilesSinceLastBuild = async path => {
         const directoryContents = await readdir(path);
         return Promise.all(directoryContents.map(subFileOrDirectory => changedFilesSinceLastBuild(join(path, subFileOrDirectory))))
     } else if(stats.mtimeMs > timestamp || stats.ctimeMs > timestamp){
+		const data = await readFile(path);
         return {
-			data: await readFile(path),
+			data,
 			path
 		}
     }
@@ -30,7 +32,6 @@ const changedFilesSinceLastBuild = async path => {
 
 // set just once
 //set("xyz");
-
 
 const filesWithChangesContents = await changedFilesSinceLastBuild("test");
 console.log(filesWithChangesContents);

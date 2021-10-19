@@ -14,12 +14,12 @@ or
 import { get, set, reset } from "stamptime"
 
 set();        // sets the timestamp
-set(123)      // sets a timestamp with an id of 123
+set(123);      // sets a timestamp with an id of 123
 
 /* Bunch of code... */
 
-get()         // gets the time stamp
-get()         // gets the time stamp with an id of 123
+const time = await get();         // gets the time stamp
+const time = await get("foo");    // gets the time stamp with an id of "foo"
 
 /* Bunch of code... */
 
@@ -27,29 +27,7 @@ reset()           // resets the time stamp
 reset(123)        // resets the time stamp with an id of 123
 ```
 
-Useful for build process, eg. only build/compile if a file has changed since last build
-
-```js
-import { stat } from "fs/promises";
-import { join } from "path";
-import { get, set } from "stamptime"
-
-const timestamp = get(1);
-
-const changedFilesSinceLastBuild = async path => {
-    const stats = await stat(path);
-    if (stats.isDirectory()) {
-        const directoryContents = await readdir(path);
-        return directoryContents.map(subFileOrDirectory => await changedFilesSinceLastBuild(join(path, subFileOrDirectory)))
-    } else if(stats.mtimeMs > timestamp || stats.ctimeMs > timestamp){
-        return await readFile(path);
-    }
-}
-
-set(1);
-
-const filesWithChangesContents = changedFilesSinceLastBuild("src");
-```
+if doing `get(id)` before `set(id)` the result will be 0, and a `set(id)` call will be made.
 
 ### How does it work?
 
