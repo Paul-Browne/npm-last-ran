@@ -1,6 +1,6 @@
 {
   "name": "stamptime",
-  "version": "2.1.0",
+  "version": "3.0.1",
   "description": "get, set and reset when a script/function was last executed",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,6 @@
   },
   "homepage": "https://github.com/Paul-Browne/npm-last-ran#readme",
   "devDependencies": {
-    "stamptime": "^2.1.0"
+    "stamptime": "^3.0.1"
   }
 }
