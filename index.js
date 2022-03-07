@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 const path = id => {
 	if (typeof id !== 'undefined') {
-		return join(dirname(fileURLToPath(import.meta.url)), id);
+		return join(dirname(fileURLToPath(import.meta.url)), id.toString());
 	} else {
 		console.error("id cannot be undefined");
 	}
