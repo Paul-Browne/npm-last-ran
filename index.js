@@ -6,7 +6,7 @@ const path = id => {
 	if (typeof id !== 'undefined') {
 		return join(dirname(fileURLToPath(import.meta.url)), id);
 	} else {
-		console.error("id must be a string of at least 6 characters");
+		console.error("id cannot be undefined");
 	}
 }
 
