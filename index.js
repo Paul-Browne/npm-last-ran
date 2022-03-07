@@ -3,10 +3,9 @@ import { join, dirname } from "path";
 import { fileURLToPath } from 'url';
 
 const path = id => {
-	const valid = (typeof id === 'string' && id.length > 5);
-	if(valid){
-		return join(dirname(fileURLToPath(import.meta.url)), id );
-	}else{
+	if (typeof id !== 'undefined') {
+		return join(dirname(fileURLToPath(import.meta.url)), id);
+	} else {
 		console.error("id must be a string of at least 6 characters");
 	}
 }
@@ -25,5 +24,5 @@ export const set = async id => {
 export const reset = async id => {
 	try {
 		await unlink(path(id), () => { });
-	} catch  { }
+	} catch { }
 }
